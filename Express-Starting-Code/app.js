@@ -1,9 +1,16 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
 const app = express();
 
-var indexRouter = require('./routes/index');
-var authRouter = require('./routes/auth');
+const dotenv = require("dotenv");
+dotenv.config();
+
+mongoose.connect(process.env.MONGO_URI).then(() => {
+    console.log("MongoDB connected");
+}).catch(err => {
+    console.error("MongoDB connection error:", err);
+});
 
 const path = require("path");
 app.set("views",path.join(__dirname,"/views"));
